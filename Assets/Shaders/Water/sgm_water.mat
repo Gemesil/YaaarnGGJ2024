@@ -54,7 +54,7 @@ Material:
     - _NormalStrength: 0.9
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0.3
+    - _Smoothness: 0.27
     - _WaterSpeed: 30
     - _WaterSpeed2: -29.3
     m_Colors:
