@@ -71,7 +71,13 @@ public class CameraController : MonoBehaviour
         Vector3 rotatedOffset = Quaternion.AngleAxis(-currentAngleX, Vector3.left) * new Vector3(1,offset.y,offset.z);
         rotatedOffset+= Quaternion.AngleAxis(currentAngleY, Vector3.up) * new Vector3(1,offset.y,offset.z);
         rotatedOffset-= offset;
-        transform.position = Vector3.Lerp(transform.position, newTarget + rotatedOffset, moveSpeed * Time.deltaTime);
+        Vector3 newPos=Vector3.Lerp(transform.position, newTarget + rotatedOffset, moveSpeed * Time.deltaTime);
+        while(Physics.Raycast(newPos,Vector3.down,1f) || Physics.Raycast(newPos,Vector3.up,1f))
+        {
+        newPos += Vector3.up*0.1f; 
+        }
+          transform.position = newPos;   
+
         currentAngleY = Mathf.Lerp(currentAngleY, newAngleY, rotateSpeed * Time.deltaTime);
         currentAngleX = Mathf.Lerp(currentAngleX, newAngleX, rotateSpeed * Time.deltaTime);
         transform.localEulerAngles = new Vector3(currentAngleX, currentAngleY, 0);

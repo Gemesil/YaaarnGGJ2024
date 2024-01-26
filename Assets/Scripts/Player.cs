@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public GameObject aimArrow;
     public GameObject yarnPiece;
+    public float moveSpeed=20f;
     public float yarnLifetime = 8f;
     public float yarnGunCooldown = 1f;
     private CameraController cameraController;
@@ -41,7 +42,21 @@ public class Player : MonoBehaviour
             float power = 500f * Mathf.Sqrt(hit.distance);
             StartCoroutine(ShootYarn((int)Mathf.Floor(hit.distance / depth), power));
         }
+    }
 
+    public void Move(float xAxis,float yAxis)
+    {
+        if(xAxis==0 && yAxis==0)
+        {
+            return;
+        }
+        Vector3 force=new Vector3(moveSpeed*xAxis,0.8f,moveSpeed*yAxis);
+        rigidBody.AddForce(transform.TransformDirection(force));
+        Vector3 camPos = cameraController.transform.position;
+        camPos.y= transform.position.y;
+        Vector3 camForward= cameraController.transform.forward;
+        camForward.y=0;
+        transform.rotation =  transform.rotation*Quaternion.FromToRotation(transform.forward,camForward );;
     }
 
     private IEnumerator ShootYarn(int pieceCount, float power)
