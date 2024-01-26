@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float aimSpeed=5f;
-    private Player player; 
- 
+    public float aimSpeed = 5f;
+    private Player player;
+
     void Start()
     {
-         player = GetComponent<Player>();
+        player = GetComponent<Player>();
     }
     // Start is called before the first frame update
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
-        player.RotateAimArrow(-Input.GetAxis("Mouse Y")*aimSpeed,Input.GetAxis("Mouse X")*aimSpeed);
+            player.RotateAimArrow(-Input.GetAxis("Mouse Y") * aimSpeed, Input.GetAxis("Mouse X") * aimSpeed);
         }
         if (Input.GetMouseButtonUp(0))
         {
