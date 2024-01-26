@@ -23,5 +23,6 @@ public class PlayerController : MonoBehaviour
         {
             player.ReleaseYarn();
         }
+        player.Move(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
     }
 }
