@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
     public void JumpToPosition(Vector3 target)
     {
         newTarget = target;
-        transform.position = target+offset;
+        transform.position = target + offset;
     }
 
     public void SlideToRotation(float angle)
@@ -60,7 +60,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, newTarget+offset, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, newTarget + offset, moveSpeed * Time.deltaTime);
         currentAngle = Mathf.Lerp(currentAngle, newAngle, rotateSpeed * Time.deltaTime);
         transform.localEulerAngles = new Vector3(0, currentAngle, 0);
     }
