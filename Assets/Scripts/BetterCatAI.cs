@@ -5,60 +5,80 @@ using UnityEngine;
 public class BetterCatAI : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] Transform player;
-    [SerializeField] float jumpTime;
-    [SerializeField] float jumpForceY;
+    [SerializeField] private Transform player;
+    [SerializeField] private float jumpForceY;
+    [SerializeField] private float jumpCooldown;
 
-    float debugTimer = 10;
-    float debugTimer2 = 10;
+    private float cooldownTimer = 1;
+
+    private bool fall;
+    private bool jump;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        fall = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        AI();
+    }
+
+    private void AI()
+    {
+        if(rb.velocity.y <= 0 && !fall && jump)
         {
-            debugTimer = 0;
-            debugTimer2 = 0;
-            rb.velocity = CalculateJumpSpeed();
+            jump = false;
+            fall = true;
         }
-        if (debugTimer <= jumpTime)
+        else if (rb.velocity.y >= 0 && fall && !jump) 
         {
-            debugTimer += Time.deltaTime;
+            cooldownTimer = jumpCooldown;
+            fall = false;
         }
-        if(debugTimer != debugTimer2 && debugTimer > jumpTime)
+
+        if(cooldownTimer >= 0)
         {
-            Debug.Log(transform.position.x);
+            //if the timer is running make it tick
+            cooldownTimer -= Time.deltaTime;
+            Debug.Log(cooldownTimer);
+            if(cooldownTimer <= 0)
+            {
+                //check if the tick reached the end of the timer
+                Jump();
+            }
         }
-        debugTimer2 = debugTimer;
-        
     }
 
     private Vector3 CalculateJumpSpeed()
     {
-        /*
-        float x = player.position.x - transform.position.x;
-        x = x / jumpTime;
-        float z = player.position.z - transform.position.z;
-        z = z / jumpTime;
-
-        float y = -Physics.gravity.y * jumpTime / 2;
-        */
         float y = jumpForceY;
-        
-        //calculate the jump time (insert formula for ofek)
-        float time = 2 * jumpForceY / Physics.gravity.y;
 
-        //calculate horizontal speed
+        //calculate the jump time 
+        /*
+         * V0 + a*t = V  /Formula for constant acceleration
+         * -V + a*t = V  /The arch starts and ends with the same speed just in the opposite direction
+         * a*t = 2V
+         * t = 2V/a
+         */
+        float time = 2 * jumpForceY / -Physics.gravity.y;
+
+        //calculate horizontal speeds
         float x = player.position.x - transform.position.x;
         x = x / time;
         float z = player.position.z - transform.position.z;
         z = z / time;
+
+        //Create and return the vector
         return new Vector3 (x, y, z);
+    }
+
+    private void Jump()
+    {
+        jump = true;
+        rb.velocity = CalculateJumpSpeed();
     }
 }
