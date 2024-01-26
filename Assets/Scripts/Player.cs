@@ -7,8 +7,10 @@ public class Player : MonoBehaviour
     public GameObject aimArrow;
     public GameObject yarnPiece;
     public float yarnLifetime = 8f;
+    public float yarnGunCooldown = 1f;
     private CameraController cameraController;
     private Rigidbody rigidBody;
+    private bool isYarnGunIncooldown=false;
 
     void Start()
     {
@@ -44,6 +46,11 @@ public class Player : MonoBehaviour
 
     private IEnumerator ShootYarn(int pieceCount, float power)
     {
+        if(isYarnGunIncooldown)
+        {
+            yield break;
+        }
+        isYarnGunIncooldown=true;
         float depth = 0.2f;
         Vector3 dir = aimArrow.transform.forward;
         Quaternion aimArrowrRotation = aimArrow.transform.rotation;
@@ -66,7 +73,12 @@ public class Player : MonoBehaviour
         }
         yield return null;
         rigidBody.AddForce(dir * power);
-        yield return new WaitForSeconds(yarnLifetime);
+        yield return new WaitForSeconds(yarnGunCooldown);
+        isYarnGunIncooldown = false;
+        if(yarnLifetime>yarnGunCooldown)
+        {
+        yield return new WaitForSeconds(yarnLifetime-yarnGunCooldown);
+        }
         for (int i = 0; i < yarns.Count; i++)
         {
             Destroy(yarns[i]);
