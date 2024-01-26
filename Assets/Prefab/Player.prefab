@@ -81,7 +81,7 @@ Rigidbody:
   m_GameObject: {fileID: 254537928145180957}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimArrow: {fileID: 5827498589556269962}
   yarnPiece: {fileID: 4883482555222799644, guid: 758a76c01afc90a4bbcad5caae1518d4, type: 3}
-  moveSpeed: 2
+  moveSpeed: 4
   yarnLifetime: 8
   yarnGunCooldown: 1
 --- !u!114 &1441022046105197333
