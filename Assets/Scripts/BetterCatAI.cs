@@ -17,8 +17,6 @@ public class BetterCatAI : MonoBehaviour
     private bool fall = false;
     private bool jump = false;
 
-    int debugFrames = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +29,6 @@ public class BetterCatAI : MonoBehaviour
     void Update()
     {
         AI();
-        debugFrames++;
     }
 
     private void AI()
@@ -40,7 +37,6 @@ public class BetterCatAI : MonoBehaviour
         
         if (PastPlayer())
         {
-            TurnToPlayer();
             Dash();
         }
         SetSpeed(); // idk why this roomba is slowing down making a physics material didnt work
@@ -62,6 +58,7 @@ public class BetterCatAI : MonoBehaviour
     private void Dash()
     {
         //Debug.Log("Changed " + playerLastPosition + " to " + player.position + "\nVelocity is " + rb.velocity);
+        TurnToPlayer();
         playerLastPosition = player.position;
         SetSpeed();
     }
