@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58dd89ff-7093-4e69-8c9f-06290c2d1fb3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/RisingWater.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RisingWater.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
