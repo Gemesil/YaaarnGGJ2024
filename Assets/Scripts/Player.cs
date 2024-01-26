@@ -73,6 +73,12 @@ public class Player : MonoBehaviour
         }
         yield return null;
         rigidBody.AddForce(dir * power);
+        for (int i = 0; i < pieceCount-1; i++)
+        {
+            Rigidbody rigidbody = yarns[i+1].GetComponent<Rigidbody>();
+           // rigidbody.isKinematic=true;
+            yarns[i].GetComponent<Joint>().connectedBody= rigidbody;
+        }
         yield return new WaitForSeconds(yarnGunCooldown);
         isYarnGunIncooldown = false;
         if(yarnLifetime>yarnGunCooldown)
