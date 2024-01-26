@@ -58,7 +58,7 @@ Material:
     - _WaterSpeed: 30
     - _WaterSpeed2: -29.3
     m_Colors:
-    - _AsborptionColor: {r: 0.8679245, g: 0.7837393, b: 0.35535777, a: 1}
+    - _AsborptionColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
     - _Shit: {r: 0.3757743, g: 0.6058256, b: 0.8773585, a: 0}
     - _WaterColor: {r: 0, g: 0.9406915, b: 1, a: 1}
   m_BuildTextureStacks: []
