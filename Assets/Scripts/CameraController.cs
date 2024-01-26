@@ -7,7 +7,8 @@ public class CameraController : MonoBehaviour
     public Vector3 offset;
     public float ZoomSpeed;
     public Vector3 newTarget;
-    public float newAngle;
+     public float newAngleX;
+    public float newAngleY;
     public float defaultZoom;
     public float moveSpeed;
     public float rotateSpeed;
@@ -16,12 +17,14 @@ public class CameraController : MonoBehaviour
     [HideInInspector]
     public Camera playerCamera;
     private float newZoom;
-    private float currentAngle;
-
+    private float currentAngleY;
+    private float currentAngleX;
     private void Awake()
     {
+        Cursor.visible=false;
         playerCamera = GetComponentInChildren<Camera>();
-        currentAngle = 0;
+        currentAngleY = 0;
+        currentAngleX = 0;
         NewZoom = defaultZoom;
         playerCamera.transform.localPosition = Vector3.forward * NewZoom;
     }
@@ -51,17 +54,25 @@ public class CameraController : MonoBehaviour
         transform.position = target + offset;
     }
 
-    public void SlideToRotation(float angle)
+    public void SlideToRotation(float angleX,float angleY)
     {
-        newAngle = angle;
+     //   newAngleX = angleX;
+        newAngleY = angleY;
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, newTarget + offset, moveSpeed * Time.deltaTime);
-        currentAngle = Mathf.Lerp(currentAngle, newAngle, rotateSpeed * Time.deltaTime);
-        transform.localEulerAngles = new Vector3(0, currentAngle, 0);
+        if (!Input.GetMouseButton(0))
+        {
+        SlideToRotation(newAngleX+Input.GetAxis("Mouse Y") * 5f,newAngleY+Input.GetAxis("Mouse X") * 5f);
+        }
+        Vector3 rotatedOffset= Quaternion.AngleAxis(currentAngleY, Vector3.up) * offset;
+        rotatedOffset= Quaternion.AngleAxis(currentAngleX, Vector3.left) * rotatedOffset;
+        transform.position = Vector3.Lerp(transform.position, newTarget + rotatedOffset, moveSpeed * Time.deltaTime);
+        currentAngleY = Mathf.Lerp(currentAngleY, newAngleY, rotateSpeed * Time.deltaTime);
+        currentAngleX = Mathf.Lerp(currentAngleX, newAngleX, rotateSpeed * Time.deltaTime);
+        transform.localEulerAngles = new Vector3(currentAngleX, currentAngleY, 0);
     }
 }
