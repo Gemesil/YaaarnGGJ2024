@@ -21,18 +21,22 @@ public class CatAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyUp(KeyCode.Space))
         {
             rb.velocity = CalculateJump();
         }
-        Gravitate();
+        //Gravitate();
     }
     private Vector3 CalculateJump()
     {
+        // 
+        float x = (player.position.x - transform.position.x) / jumpTime;
+        float z = (player.position.z - transform.position.z) / jumpTime;
 
-        float x = (player.position.x - transform.position.x)/jumpTime;
-        float z = (player.position.z - transform.position.z)/jumpTime;
-        float y = 2 *(jumpHeight/(jumpTime * jumpTime));
+        // calc time in midair
+        //gravity = (-8 * jumpHeight) / (float)Math.Pow(jumpTime, 2); //its a formula
+        //float y = 2 * jumpHeight - gravity * (jumpTime * jumpTime / 2);
+        float y = jumpTime * (-gravity);
 
         return new Vector3(x, y, z);
     }
