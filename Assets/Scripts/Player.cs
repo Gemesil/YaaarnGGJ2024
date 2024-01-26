@@ -11,12 +11,19 @@ public class Player : MonoBehaviour
     public float yarnGunCooldown = 1f;
     private CameraController cameraController;
     private Rigidbody rigidBody;
-    private bool isYarnGunIncooldown=false;
+    private bool isYarnGunIncooldown=true;
 
     void Start()
     {
         cameraController = Camera.main.gameObject.GetComponent<CameraController>();
         rigidBody = GetComponent<Rigidbody>();
+        StartCoroutine(DontLetShootYarnAtStart());
+    }
+
+    private IEnumerator DontLetShootYarnAtStart()
+    {
+        yield return new WaitForSeconds(1);
+        isYarnGunIncooldown=false;
     }
 
     // Update is called once per frame
