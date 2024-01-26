@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
 
     public void SlideToRotation(float angleX,float angleY)
     {
-     //   newAngleX = angleX;
+        newAngleX = angleX;
         newAngleY = angleY;
     }
 
@@ -66,10 +66,10 @@ public class CameraController : MonoBehaviour
     {
         if (!Input.GetMouseButton(0))
         {
-        SlideToRotation(newAngleX+Input.GetAxis("Mouse Y") * 5f,newAngleY+Input.GetAxis("Mouse X") * 5f);
+        SlideToRotation(newAngleX-Input.GetAxis("Mouse Y") * 5f,newAngleY+Input.GetAxis("Mouse X") * 5f);
         }
-        Vector3 rotatedOffset= Quaternion.AngleAxis(currentAngleY, Vector3.up) * offset;
-        rotatedOffset= Quaternion.AngleAxis(currentAngleX, Vector3.left) * rotatedOffset;
+        Vector3 rotatedOffset = Quaternion.AngleAxis(-currentAngleX, Vector3.left) * new Vector3(1,1,offset.z);
+        rotatedOffset+= Quaternion.AngleAxis(currentAngleY, Vector3.up) * new Vector3(1,offset.y,offset.z);
         transform.position = Vector3.Lerp(transform.position, newTarget + rotatedOffset, moveSpeed * Time.deltaTime);
         currentAngleY = Mathf.Lerp(currentAngleY, newAngleY, rotateSpeed * Time.deltaTime);
         currentAngleX = Mathf.Lerp(currentAngleX, newAngleX, rotateSpeed * Time.deltaTime);
