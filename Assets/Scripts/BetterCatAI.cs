@@ -6,51 +6,130 @@ public class BetterCatAI : MonoBehaviour
 {
     Rigidbody rb;
     [SerializeField] private Transform player;
+    [SerializeField] private float dashSpeed;
+
     [SerializeField] private float jumpForceY;
     [SerializeField] private float jumpCooldown;
 
+    private Vector3 playerLastPosition;
     private float cooldownTimer = 1;
 
-    private bool fall;
-    private bool jump;
+    private bool fall = false;
+    private bool jump = false;
+
+    int debugFrames = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         fall = false;
+        Dash();
     }
 
     // Update is called once per frame
     void Update()
     {
         AI();
+        debugFrames++;
     }
 
     private void AI()
     {
-        if(rb.velocity.y <= 0 && !fall && jump)
+        
+        
+        if (PastPlayer())
         {
-            jump = false;
-            fall = true;
+            TurnToPlayer();
+            Dash();
         }
-        else if (rb.velocity.y >= 0 && fall && !jump) 
+        SetSpeed(); // idk why this roomba is slowing down making a physics material didnt work
+    }
+
+    private void TurnToPlayer()
+    {
+        //Get direction vector
+        float x = player.position.x - transform.position.x;
+        float z = player.position.z - transform.position.z;
+        float angle = -Mathf.Atan2(-x, z);
+        angle = angle * Mathf.Rad2Deg;
+        Quaternion q = new Quaternion();
+        q.eulerAngles = new Vector3(0, angle, 0);
+        rb.transform.rotation = q;
+
+    }
+
+    private void Dash()
+    {
+        //Debug.Log("Changed " + playerLastPosition + " to " + player.position + "\nVelocity is " + rb.velocity);
+        playerLastPosition = player.position;
+        SetSpeed();
+    }
+
+    private bool PastPlayer()
+    {
+        //start by understanding the direction of the dash, and then check if youre past the old player position (of when the roomba started its dash)
+        Vector3 dirVector = new Vector3();
+        dirVector = rb.velocity;
+
+        //Debug.DrawLine(transform.position, playerLastPosition, Color.green);
+        //Debug.DrawLine(transform.position, transform.position + dirVector, Color.blue);
+
+
+        //now we can compare the current position against the old player position
+        //I multiply the position by -1 if the direction is negative to check whever or not the cat is past that point
+        bool pastX;
+        bool pastZ;
+
+        if (dirVector.x > 0)
         {
-            cooldownTimer = jumpCooldown;
-            fall = false;
+            pastX = transform.position.x >= playerLastPosition.x;
+            //if (pastX) 
+              //  Debug.Log(debugFrames + " X: " + pastX + " = " + transform.position.x + " >= " + playerLastPosition.x);
+        }
+        else
+        {
+            pastX = transform.position.x <= playerLastPosition.x;
+            //if (pastX)
+              //  Debug.Log(debugFrames + " X: " + pastX + " = " + transform.position.x + " <= " + playerLastPosition.x);
         }
 
-        if(cooldownTimer >= 0)
+        if (dirVector.z > 0)
         {
-            //if the timer is running make it tick
-            cooldownTimer -= Time.deltaTime;
-            Debug.Log(cooldownTimer);
-            if(cooldownTimer <= 0)
-            {
-                //check if the tick reached the end of the timer
-                Jump();
-            }
+            pastZ = transform.position.z >= playerLastPosition.z;
+            //if (pastZ)
+              //  Debug.Log(debugFrames + " Z: " + pastZ + " = " + transform.position.z + " >= " + playerLastPosition.z);
         }
+        else
+        {
+            pastZ = transform.position.z <= playerLastPosition.z;
+            //if (pastZ)
+              //  Debug.Log(debugFrames + " Z: " + pastZ + " = " + transform.position.z + " <= " + playerLastPosition.z);
+        }
+
+        /*
+        if(pastX && pastZ)
+        {
+            Debug.Log("frame: " + debugFrames + " velocity: " + rb.velocity);
+            Debug.DrawLine(rb.position, player.position, Color.red);
+            //Debug.Break();
+        }
+        */
+        return pastX && pastZ;
+    }
+
+    private void SetSpeed()
+    {
+        Vector3 dirVector = new Vector3();
+        dirVector = playerLastPosition - transform.position;
+
+        //normelize horizontal speed
+        dirVector.y = 0;
+        dirVector.Normalize();
+
+        //return the fall speed if needed
+        dirVector.y = rb.velocity.y; 
+        rb.velocity = dirVector * dashSpeed;
     }
 
     private Vector3 CalculateJumpSpeed()
@@ -80,5 +159,30 @@ public class BetterCatAI : MonoBehaviour
     {
         jump = true;
         rb.velocity = CalculateJumpSpeed();
+    }
+
+    private void JumpRules()
+    {
+        if (rb.velocity.y <= 0 && !fall && jump)
+        {
+            jump = false;
+            fall = true;
+        }
+        else if (rb.velocity.y >= 0 && fall && !jump)
+        {
+            cooldownTimer = jumpCooldown;
+            fall = false;
+        }
+
+        if (cooldownTimer >= 0)
+        {
+            //if the timer is running make it tick
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0)
+            {
+                //check if the tick reached the end of the timer
+                Jump();
+            }
+        }
     }
 }
