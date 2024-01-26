@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public GameObject aimArrow;
     public GameObject yarnPiece;
+    public float yarnLifetime = 8f;
 private CameraController cameraController;
 private Rigidbody rigidBody;
 
@@ -47,9 +48,10 @@ private IEnumerator ShootYarn(int pieceCount,float power)
    Vector3 dir=aimArrow.transform.forward;
    Quaternion aimArrowrRotation = aimArrow.transform.rotation;
    Vector3 startPos = transform.position;
+   List<GameObject> yarns= new List<GameObject>();
    for(int i=0; i<pieceCount;i++)
    {
-   Instantiate(yarnPiece,startPos+dir*depth*i,aimArrowrRotation);
+   yarns.Add(Instantiate(yarnPiece,startPos+dir*depth*i,aimArrowrRotation));
    if(pieceCount<50)
    {
     if(i%2==0)
@@ -64,7 +66,13 @@ private IEnumerator ShootYarn(int pieceCount,float power)
    }
        yield return null;
    rigidBody.AddForce(dir*power);
+   yield return new WaitForSeconds(yarnLifetime);
+for (int i = 0; i < yarns.Count; i++)
+{
+    Destroy(yarns[i]);
 }
+}
+
 
 
 }
