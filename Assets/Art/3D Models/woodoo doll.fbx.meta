@@ -3,7 +3,22 @@ guid: ff642961246be144697362168219bd88
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Boucle fabric
+    second: {fileID: 2100000, guid: c982fcea6a7bbe347b87e503d1662f82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: button.001
+    second: {fileID: 2100000, guid: 5f0d75f8ce9dabe42932bc332cc0b72b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: couch fabric
+    second: {fileID: 2100000, guid: b243adfcd8388b74cba11a94e3add018, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -71,7 +86,7 @@ ModelImporter:
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
