@@ -43,14 +43,12 @@ public class Player : MonoBehaviour
 
     public void ReleaseYarn(bool isAttachShoot)
     {
-        print("pew");
         int layerMask = ~gameObject.layer;
         float depth = 0.2f;
         RaycastHit hit;
         Physics.Raycast(transform.position, aimArrow.transform.forward, out hit, Mathf.Infinity, layerMask);
       //  if ()
         {
-            print("pass");
             float power = 500f * Mathf.Sqrt(hit.distance);
             StartCoroutine(ShootYarn((int)Mathf.Floor(hit.distance / depth), power,isAttachShoot));
         }
@@ -62,7 +60,7 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        Vector3 force=new Vector3(moveSpeed*xAxis,8,moveSpeed*yAxis);
+        Vector3 force=new Vector3(moveSpeed*xAxis,rigidBody.velocity.y==0?8:0,moveSpeed*yAxis);
         rigidBody.AddForce(transform.TransformDirection(force));
         Vector3 camPos = cameraController.transform.position;
         camPos.y= transform.position.y;
