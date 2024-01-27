@@ -57,7 +57,7 @@ public class BetterCatAI : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            Destroy(collision.gameObject);
+            Destroy(collision.transform.parent.gameObject);
         }
     }
 
