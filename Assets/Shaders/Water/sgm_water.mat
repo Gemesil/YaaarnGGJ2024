@@ -54,9 +54,9 @@ Material:
     - _NormalStrength: 0.9
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0.27
-    - _WaterSpeed: 30
-    - _WaterSpeed2: -29.3
+    - _Smoothness: 0.786
+    - _WaterSpeed: 56.8
+    - _WaterSpeed2: -42.53
     m_Colors:
     - _AsborptionColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
     - _Shit: {r: 0.3757743, g: 0.6058256, b: 0.8773585, a: 0}
