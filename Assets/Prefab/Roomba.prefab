@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 5998790544633562267}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6, y: 22.3, z: 20.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4052080725974005723}
@@ -77,6 +77,7 @@ MonoBehaviour:
   player: {fileID: 0}
   dashSpeed: 40
   trapLayer: iRobot Trap
+  hp: 5
   jumpForceY: 15
   jumpDistance: 30
 --- !u!1 &8358840202715499478
@@ -90,7 +91,7 @@ GameObject:
   - component: {fileID: 4052080725974005723}
   - component: {fileID: 7332180847531030780}
   m_Layer: 6
-  m_Name: Model
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
