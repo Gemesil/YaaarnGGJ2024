@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float moveSpeed=20f;
     public float yarnLifetime = 8f;
     public float yarnGunCooldown = 1f;
+    public int lifepoints=3;
     private CameraController cameraController;
     private Rigidbody rigidBody;
     private bool isYarnGunIncooldown=true;
@@ -143,7 +144,11 @@ void OnCollisionEnter(Collision collision)
     {     
         if(collision.collider.gameObject.layer == obstacleLayer)
         {
+            lifepoints--;
+            if(lifepoints==0)
+            {
           GameOver();
+            }
         }
     }
 
