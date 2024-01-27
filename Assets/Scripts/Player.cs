@@ -140,7 +140,6 @@ public class Player : MonoBehaviour
 
 void OnCollisionEnter(Collision collision)
     {     
-        print(collision.collider.gameObject.layer);  
         if(collision.collider.gameObject.layer == obstacleLayer)
         {
           GameOver();
