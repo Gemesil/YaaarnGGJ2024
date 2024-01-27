@@ -5,6 +5,8 @@ using UnityEngine;
 public class BetterCatAI : MonoBehaviour
 {
     Rigidbody rb;
+    private LevelManager levelManager;
+
     [SerializeField] private Transform player;
     [SerializeField] private float dashSpeed;
     [Tooltip("The string name of the traps which is layer 11.")]
@@ -25,6 +27,7 @@ public class BetterCatAI : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         fall = false;
+        levelManager = GetComponent<LevelManager>();
         Dash();
     }
 
@@ -54,11 +57,15 @@ public class BetterCatAI : MonoBehaviour
         {
             hp--;
             if (hp <= 0)
-            {
-                Destroy(gameObject);
-            }
+                KillRoomba();
             Destroy(collision.transform.parent.gameObject);
         }
+    }
+
+    private void KillRoomba()
+    {
+        Destroy(gameObject);
+        levelManager.PlayVictory();
     }
 
     private void TurnToPlayer()

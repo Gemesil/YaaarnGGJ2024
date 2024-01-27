@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4656538912261458168}
   - component: {fileID: 635665121822340178}
   - component: {fileID: 5529777651809042718}
+  - component: {fileID: 1244975359406166189}
   m_Layer: 6
   m_Name: Roomba
   m_TagString: Untagged
@@ -80,6 +81,18 @@ MonoBehaviour:
   hp: 5
   jumpForceY: 15
   jumpDistance: 30
+--- !u!114 &1244975359406166189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5998790544633562267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f99eb262e343144af4d13428eb3641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8358840202715499478
 GameObject:
   m_ObjectHideFlags: 0

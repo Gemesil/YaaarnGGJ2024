@@ -38,5 +38,8 @@ public void PlayAgain()
     SceneManager.LoadScene(levelNames[lastLevelPlayed]);
 }
 
-
+    public void PlayVictory()
+    {
+        SceneManager.LoadScene("Victory");
+    }
 }
