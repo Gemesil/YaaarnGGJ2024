@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private Rigidbody rigidBody;
     private bool isYarnGunIncooldown=true;
     private int obstacleLayer = 6;
+    public AnimationClip walkClip;
 
     void Start()
     {
@@ -59,8 +60,10 @@ public class Player : MonoBehaviour
     {
         if(xAxis==0 && yAxis==0)
         {
+            GetComponentInChildren<Animator>().Play("Armature_001|Idle");
             return;
         }
+        GetComponentInChildren<Animator>().Play("Armature_001|Walk");//(walkClip.name);
         Vector3 force=new Vector3(moveSpeed*xAxis,rigidBody.velocity.y==0?8:0,moveSpeed*yAxis);
         rigidBody.AddForce(transform.TransformDirection(force));
         Vector3 camPos = cameraController.transform.position;
