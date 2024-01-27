@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float moveSpeed=20f;
     public float yarnLifetime = 8f;
     public float yarnGunCooldown = 1f;
+    public int lifepoints=3;
     private CameraController cameraController;
     private Rigidbody rigidBody;
     private bool isYarnGunIncooldown=true;
@@ -43,14 +44,12 @@ public class Player : MonoBehaviour
 
     public void ReleaseYarn(bool isAttachShoot)
     {
-        print("pew");
         int layerMask = ~gameObject.layer;
         float depth = 0.2f;
         RaycastHit hit;
-        Physics.Raycast(aimArrow.transform.position, aimArrow.transform.forward, out hit, Mathf.Infinity, layerMask);
+        Physics.Raycast(transform.position, aimArrow.transform.forward, out hit, Mathf.Infinity, layerMask);
       //  if ()
         {
-            print("pass");
             float power = 500f * Mathf.Sqrt(hit.distance);
             StartCoroutine(ShootYarn((int)Mathf.Floor(hit.distance / depth), power,isAttachShoot));
         }
@@ -62,7 +61,7 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        Vector3 force=new Vector3(moveSpeed*xAxis,8,moveSpeed*yAxis);
+        Vector3 force=new Vector3(moveSpeed*xAxis,rigidBody.velocity.y==0?8:0,moveSpeed*yAxis);
         rigidBody.AddForce(transform.TransformDirection(force));
         Vector3 camPos = cameraController.transform.position;
         camPos.y= transform.position.y;
@@ -145,7 +144,11 @@ void OnCollisionEnter(Collision collision)
     {     
         if(collision.collider.gameObject.layer == obstacleLayer)
         {
+            lifepoints--;
+            if(lifepoints==0)
+            {
           GameOver();
+            }
         }
     }
 
