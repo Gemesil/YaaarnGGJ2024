@@ -7,11 +7,11 @@ public class BetterCatAI : MonoBehaviour
     Rigidbody rb;
     [SerializeField] private Transform player;
     [SerializeField] private float dashSpeed;
+    [Tooltip("The string name of the traps which is layer 11.")]
     [SerializeField] private string trapLayer;
 
     [SerializeField] private float jumpForceY;
-    [SerializeField] private float jumpCooldown;
-
+    [Tooltip("The distance from which the roomba will jump instead of dash.")]
     [SerializeField] private float jumpDistance;
 
     private Vector3 playerLastPosition;
@@ -43,7 +43,6 @@ public class BetterCatAI : MonoBehaviour
                 Jump();
             else
                 Dash();
-
         }
         
         JumpBools();
@@ -53,7 +52,7 @@ public class BetterCatAI : MonoBehaviour
     {
         if (LayerMask.LayerToName(collision.gameObject.layer) == trapLayer)
         {
-            trapped = true;
+            
         }
     }
 
