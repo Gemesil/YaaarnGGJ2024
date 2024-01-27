@@ -42,13 +42,13 @@ public class BlinkingLight : MonoBehaviour
             isBlinking = true;
 
             // Turn off the light
-            lightComponent.enabled = false;
+            lightComponent.enabled = !lightComponent.enabled;
 
             // Wait for the specified duration
             yield return new WaitForSeconds(blinkDuration);
 
             // Turn on the light
-            lightComponent.enabled = true;
+            lightComponent.enabled = !lightComponent.enabled;
 
             // Set the next blink time
             SetNextBlinkTime();
