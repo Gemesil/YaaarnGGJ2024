@@ -26,7 +26,18 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            player.ReleaseYarn();
+            player.ReleaseYarn(false);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+             player.ReleaseYarn(true);
+        }else if(Input.GetMouseButtonUp(1))
+        {
+           Joint joint = player.gameObject.GetComponent<Joint>();
+           if(joint!=null)
+           {
+            Destroy(joint);
+           }
         }
     }
 }

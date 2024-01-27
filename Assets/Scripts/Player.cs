@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         aimArrow.transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
     }
 
-    public void ReleaseYarn()
+    public void ReleaseYarn(bool isAttachShoot)
     {
         int layerMask = ~gameObject.layer;
         float depth = 0.2f;
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(transform.position, aimArrow.transform.forward, out hit, Mathf.Infinity, layerMask))
         {
             float power = 500f * Mathf.Sqrt(hit.distance);
-            StartCoroutine(ShootYarn((int)Mathf.Floor(hit.distance / depth), power));
+            StartCoroutine(ShootYarn((int)Mathf.Floor(hit.distance / depth), power,isAttachShoot));
         }
     }
 
@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
         transform.rotation =  transform.rotation*Quaternion.FromToRotation(transform.forward,camForward );;
     }
 
-    private IEnumerator ShootYarn(int pieceCount, float power)
+    private IEnumerator ShootYarn(int pieceCount, float power, bool attachShoot)
     {
         if(isYarnGunIncooldown)
         {
@@ -94,14 +94,33 @@ public class Player : MonoBehaviour
             }
         }
         yield return null;
+         if(pieceCount>0)
+        {
+            Joint playerJoint= GetComponent<Joint>();   
+            if(playerJoint==null && attachShoot)
+            {
+                playerJoint = gameObject.AddComponent<FixedJoint>();
+            }else if(!attachShoot)
+            {
+             Destroy(playerJoint);
+             playerJoint=null;
+            }
+            if(playerJoint!=null)
+            {
+            playerJoint.connectedBody = attachShoot?yarns[0].GetComponent<Rigidbody>():null;
+            }
+        }
+        if(!attachShoot)
+        {
         rigidBody.AddForce(dir * power);
+        }
         for (int i = 0; i < pieceCount-1; i++)
         {
             Rigidbody rigidbody = yarns[i+1].GetComponent<Rigidbody>();
            // rigidbody.isKinematic=true;
             yarns[i].GetComponent<Joint>().connectedBody= rigidbody;
         }
-        yield return new WaitForSeconds(yarnGunCooldown);
+        yield return new WaitForSeconds(attachShoot?yarnGunCooldown*2f:yarnGunCooldown);
         isYarnGunIncooldown = false;
         if(yarnLifetime>yarnGunCooldown)
         {
@@ -110,6 +129,10 @@ public class Player : MonoBehaviour
         for (int i = 0; i < yarns.Count; i++)
         {
             Destroy(yarns[i]);
+        }
+        if(attachShoot && GetComponent<Joint>()!=null)
+        {
+            Destroy(GetComponent<Joint>());
         }
     }
 
