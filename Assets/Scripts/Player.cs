@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        Vector3 force=new Vector3(moveSpeed*xAxis,0.8f,moveSpeed*yAxis);
+        Vector3 force=new Vector3(moveSpeed*xAxis,8,moveSpeed*yAxis);
         rigidBody.AddForce(transform.TransformDirection(force));
         Vector3 camPos = cameraController.transform.position;
         camPos.y= transform.position.y;
