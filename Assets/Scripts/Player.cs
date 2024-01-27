@@ -43,11 +43,14 @@ public class Player : MonoBehaviour
 
     public void ReleaseYarn(bool isAttachShoot)
     {
+        print("pew");
         int layerMask = ~gameObject.layer;
         float depth = 0.2f;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, aimArrow.transform.forward, out hit, Mathf.Infinity, layerMask))
+        Physics.Raycast(aimArrow.transform.position, aimArrow.transform.forward, out hit, Mathf.Infinity, layerMask);
+      //  if ()
         {
+            print("pass");
             float power = 500f * Mathf.Sqrt(hit.distance);
             StartCoroutine(ShootYarn((int)Mathf.Floor(hit.distance / depth), power,isAttachShoot));
         }
