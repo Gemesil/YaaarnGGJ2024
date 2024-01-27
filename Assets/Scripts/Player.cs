@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     private CameraController cameraController;
     private Rigidbody rigidBody;
     private bool isYarnGunIncooldown=true;
+    private int obstacleLayer = 6;
 
     void Start()
     {
@@ -136,6 +138,19 @@ public class Player : MonoBehaviour
         }
     }
 
+void OnCollisionEnter(Collision collision)
+    {     
+        print(collision.collider.gameObject.layer);  
+        if(collision.collider.gameObject.layer == obstacleLayer)
+        {
+          GameOver();
+        }
+    }
 
+private void GameOver()
+{
+    Cursor.visible=true;
+SceneManager.LoadScene("GameOver");
+}
 
 }

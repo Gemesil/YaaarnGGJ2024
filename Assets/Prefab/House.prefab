@@ -569,7 +569,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 19afc33975da6024dabec1bd03e8c41f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1344,7 +1344,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 10, z: 0}
+  m_CenterOfMass: {x: 0, y: 8, z: 0.1}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -1371,7 +1371,7 @@ ConstantForce:
   m_Force: {x: 0, y: 0, z: 0}
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
-  m_RelativeTorque: {x: 0, y: 50, z: 0}
+  m_RelativeTorque: {x: 0, y: 5000, z: 0}
 --- !u!65 &591452896612342154
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1403,7 +1403,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7e5828627b63b4f4bbc676448a657146, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.9
+      value: -2.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7e5828627b63b4f4bbc676448a657146, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1411,7 +1411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7e5828627b63b4f4bbc676448a657146, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.8
+      value: 13.41
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7e5828627b63b4f4bbc676448a657146, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1521,7 +1521,7 @@ ConstantForce:
   m_Force: {x: 0, y: 0, z: 0}
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
-  m_RelativeTorque: {x: 0, y: 50, z: 0}
+  m_RelativeTorque: {x: 0, y: 500, z: 0}
 --- !u!65 &6159292073144986727
 BoxCollider:
   m_ObjectHideFlags: 0
