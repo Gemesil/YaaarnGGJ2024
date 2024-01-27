@@ -26,15 +26,13 @@ public class BetterCatAI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         AI();
     }
 
     private void AI()
-    {
-        
-        
+    {      
         if (PastPlayer())
         {
             Dash();
@@ -58,7 +56,12 @@ public class BetterCatAI : MonoBehaviour
     private void Dash()
     {
         //Debug.Log("Changed " + playerLastPosition + " to " + player.position + "\nVelocity is " + rb.velocity);
+        Vector3 playerPos= new Vector3(player.position.x,player.position.y,0);
+        Vector3 AIPos = new Vector3(transform.position.x,transform.position.y,0);
+        if((playerPos-AIPos).magnitude>15f)
+        {
         TurnToPlayer();
+        }
         playerLastPosition = player.position;
         SetSpeed();
     }
