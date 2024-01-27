@@ -659,7 +659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3367209718929486649, guid: 509f2f441f84f474cad473608c875f26, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -104.1
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 3367209718929486649, guid: 509f2f441f84f474cad473608c875f26, type: 3}
       propertyPath: m_LocalPosition.y
@@ -667,7 +667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3367209718929486649, guid: 509f2f441f84f474cad473608c875f26, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -123.2
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 3367209718929486649, guid: 509f2f441f84f474cad473608c875f26, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1131,6 +1131,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 235790592}
+    - target: {fileID: 5529777651809042718, guid: 80f680d2212d0764680540393b4fa686, type: 3}
+      propertyPath: dashSpeed
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5529777651809042718, guid: 80f680d2212d0764680540393b4fa686, type: 3}
+      propertyPath: jumpForceY
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5529777651809042718, guid: 80f680d2212d0764680540393b4fa686, type: 3}
+      propertyPath: jumpDistance
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5998790544633562267, guid: 80f680d2212d0764680540393b4fa686, type: 3}
       propertyPath: m_Name
       value: Roomba

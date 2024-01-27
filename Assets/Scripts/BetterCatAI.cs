@@ -7,12 +7,15 @@ public class BetterCatAI : MonoBehaviour
     Rigidbody rb;
     [SerializeField] private Transform player;
     [SerializeField] private float dashSpeed;
+    [SerializeField] private string trapLayer;
 
     [SerializeField] private float jumpForceY;
     [SerializeField] private float jumpCooldown;
 
+    [SerializeField] private float jumpDistance;
+
     private Vector3 playerLastPosition;
-    private float cooldownTimer = 1;
+    private bool trapped = false;
 
     private bool fall = false;
     private bool jump = false;
@@ -32,19 +35,39 @@ public class BetterCatAI : MonoBehaviour
     }
 
     private void AI()
-    {      
-        if (PastPlayer())
+    {
+        TurnToPlayer();
+        if (!jump && !fall)
         {
-            Dash();
+            if (DistanceToPlayerHorizontal() <= jumpDistance)
+                Jump();
+            else
+                Dash();
+
         }
-        SetSpeed(); // idk why this roomba is slowing down making a physics material didnt work
+        
+        JumpBools();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (LayerMask.LayerToName(collision.gameObject.layer) == trapLayer)
+        {
+            trapped = true;
+        }
     }
 
     private void TurnToPlayer()
     {
+        TurnTo(player.position);
+
+    }
+
+    private void TurnTo(Vector3 target)
+    {
         //Get direction vector
-        float x = player.position.x - transform.position.x;
-        float z = player.position.z - transform.position.z;
+        float x = target.x - transform.position.x;
+        float z = target.z - transform.position.z;
         float angle = -Mathf.Atan2(-x, z);
         angle = angle * Mathf.Rad2Deg;
         Quaternion q = new Quaternion();
@@ -161,7 +184,7 @@ public class BetterCatAI : MonoBehaviour
         rb.velocity = CalculateJumpSpeed();
     }
 
-    private void JumpRules()
+    private void JumpBools()
     {
         if (rb.velocity.y <= 0 && !fall && jump)
         {
@@ -170,19 +193,15 @@ public class BetterCatAI : MonoBehaviour
         }
         else if (rb.velocity.y >= 0 && fall && !jump)
         {
-            cooldownTimer = jumpCooldown;
             fall = false;
         }
+    }
 
-        if (cooldownTimer >= 0)
-        {
-            //if the timer is running make it tick
-            cooldownTimer -= Time.deltaTime;
-            if (cooldownTimer <= 0)
-            {
-                //check if the tick reached the end of the timer
-                Jump();
-            }
-        }
+    private float DistanceToPlayerHorizontal()
+    {
+        Vector3 disVector = player.position - transform.position;
+        disVector.y = 0;
+        float distance = disVector.magnitude;
+        return distance;
     }
 }
