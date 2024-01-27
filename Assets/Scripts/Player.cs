@@ -145,6 +145,7 @@ void OnCollisionEnter(Collision collision)
         if(collision.collider.gameObject.layer == obstacleLayer)
         {
             lifepoints--;
+            UIMediator.current.SetLifePoint(lifepoints);
             if(lifepoints==0)
             {
           GameOver();
