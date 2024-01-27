@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         int layerMask = ~gameObject.layer;
         float depth = 0.2f;
         RaycastHit hit;
-        Physics.Raycast(aimArrow.transform.position, aimArrow.transform.forward, out hit, Mathf.Infinity, layerMask);
+        Physics.Raycast(transform.position, aimArrow.transform.forward, out hit, Mathf.Infinity, layerMask);
       //  if ()
         {
             print("pass");
